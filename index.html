@@ -405,11 +405,13 @@
       .nav-links { 
         display: none; flex-direction: column;
         position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-        background: var(--bg); padding: 100px 40px 40px;
-        gap: 24px;
+        background: #FFFFFF; padding: 120px 40px 40px;
+        gap: 28px; z-index: 105;
+        align-items: center; justify-content: flex-start;
       }
       .nav-links.open { display: flex; }
-      .nav-links a { font-size: 1.2rem; color: var(--text); }
+      .nav-links a { font-size: 1.4rem; color: var(--text); font-weight: 600; }
+      .nav-links .nav-cta { font-size: 1.05rem !important; margin-top: 12px; }
       .hamburger { display: block; }
       section { padding: 72px 20px; }
       .hero { padding: 130px 20px 72px; }
