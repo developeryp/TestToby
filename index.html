@@ -68,8 +68,10 @@
     .logo:hover { transform: scale(1.05); }
     .logo span { color: var(--accent); }
     .logo-img {
-      height: 36px; width: auto; object-fit: contain;
-      filter: drop-shadow(0 0 8px rgba(168,85,247,0.15));
+      height: 36px; width: 36px; object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 12px rgba(168,85,247,0.2);
     }
     .nav-links-desktop { display: flex; gap: 32px; align-items: center; }
     .nav-links-desktop a {
@@ -383,7 +385,11 @@
       display: flex; align-items: center; gap: 8px;
     }
     .footer-brand span { color: var(--accent); }
-    .footer-logo-img { height: 28px; width: auto; object-fit: contain; }
+    .footer-logo-img {
+      height: 28px; width: 28px; object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+    }
     .footer-links { display: flex; gap: 24px; }
     .footer-links a {
       font-size: 0.85rem; color: var(--text-muted); text-decoration: none;
@@ -463,15 +469,17 @@
     }
 
     .loader-logo-img {
-      height: 80px; width: auto; object-fit: contain;
+      height: 90px; width: 90px; object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 30px rgba(168,85,247,0.25), 0 0 60px rgba(168,85,247,0.1);
       position: relative; z-index: 3;
       opacity: 0;
       animation: loaderImgReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
-      filter: drop-shadow(0 0 20px rgba(168,85,247,0.3));
     }
     @keyframes loaderImgReveal {
-      from { opacity: 0; transform: scale(0.7) rotate(-8deg); filter: blur(6px) drop-shadow(0 0 20px rgba(168,85,247,0.3)); }
-      to { opacity: 1; transform: scale(1) rotate(0deg); filter: blur(0) drop-shadow(0 0 20px rgba(168,85,247,0.3)); }
+      from { opacity: 0; transform: scale(0.7) rotate(-8deg); filter: blur(6px); }
+      to { opacity: 1; transform: scale(1) rotate(0deg); filter: blur(0); }
     }
 
     .loader-logo {
