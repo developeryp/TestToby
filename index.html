@@ -64,12 +64,12 @@
       letter-spacing: -0.02em;
     }
     .logo span { color: var(--accent); }
-    .nav-links { display: flex; gap: 32px; align-items: center; }
-    .nav-links a {
+    .nav-links-desktop { display: flex; gap: 32px; align-items: center; }
+    .nav-links-desktop a {
       font-size: 0.9rem; font-weight: 500; color: var(--text-muted);
       text-decoration: none; transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--text); }
+    .nav-links-desktop a:hover { color: var(--text); }
     .nav-cta {
       background: var(--accent) !important; color: #fff !important;
       padding: 10px 22px !important; border-radius: 50px !important;
@@ -77,6 +77,31 @@
       transition: background 0.2s !important;
     }
     .nav-cta:hover { background: var(--accent-hover) !important; }
+
+    /* Mobile menu - separate element */
+    .mobile-menu {
+      display: none;
+      position: fixed; top: 68px; left: 0; right: 0;
+      background: #FFFFFF;
+      border-bottom: 2px solid var(--border);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+      padding: 24px 32px;
+      flex-direction: column; gap: 4px;
+      z-index: 9999;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      display: block; padding: 16px 20px;
+      font-size: 1.1rem; font-weight: 600; color: var(--text);
+      text-decoration: none; border-radius: 12px;
+      transition: background 0.2s;
+    }
+    .mobile-menu a:hover { background: var(--bg-alt); }
+    .mobile-menu .nav-cta {
+      margin-top: 8px; text-align: center;
+      display: block !important; padding: 16px 20px !important;
+      border-radius: 12px !important; font-size: 1rem !important;
+    }
 
     /* Mobile nav */
     .hamburger {
@@ -403,16 +428,7 @@
 
     /* ---- RESPONSIVE ---- */
     @media (max-width: 768px) {
-      .nav-links { 
-        display: none; flex-direction: column;
-        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-        background: #FFFFFF; padding: 120px 40px 40px;
-        gap: 28px; z-index: 105;
-        align-items: center; justify-content: flex-start;
-      }
-      .nav-links.open { display: flex; }
-      .nav-links a { font-size: 1.4rem; color: var(--text); font-weight: 600; }
-      .nav-links .nav-cta { font-size: 1.05rem !important; margin-top: 12px; }
+      .nav-links-desktop { display: none; }
       .hamburger { display: block; }
       section { padding: 72px 20px; }
       .hero { padding: 130px 20px 72px; }
@@ -432,7 +448,7 @@
 <nav id="nav">
   <div class="nav-inner">
     <a href="#" class="logo">Tobys<span>Business</span></a>
-    <div class="nav-links" id="navLinks">
+    <div class="nav-links-desktop">
       <a href="#services">Leistungen</a>
       <a href="#process">Ablauf</a>
       <a href="#contact" class="nav-cta">Erstgespräch sichern</a>
@@ -442,6 +458,11 @@
     </button>
   </div>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services">Leistungen</a>
+  <a href="#process">Ablauf</a>
+  <a href="#contact" class="nav-cta">Erstgespräch sichern</a>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="hero">
@@ -733,15 +754,15 @@
 
   // Hamburger menu
   const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks');
+  const mobileMenu = document.getElementById('mobileMenu');
   hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('open');
-    navLinks.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
   });
-  navLinks.querySelectorAll('a').forEach(a => {
+  mobileMenu.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => {
       hamburger.classList.remove('open');
-      navLinks.classList.remove('open');
+      mobileMenu.classList.remove('open');
     });
   });
 
