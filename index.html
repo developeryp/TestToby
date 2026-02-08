@@ -63,9 +63,14 @@
       font-family: var(--font-display); font-size: 1.35rem; font-weight: 700;
       color: var(--text); text-decoration: none; letter-spacing: -0.02em;
       transition: transform 0.3s;
+      display: flex; align-items: center; gap: 10px;
     }
     .logo:hover { transform: scale(1.05); }
     .logo span { color: var(--accent); }
+    .logo-img {
+      height: 36px; width: auto; object-fit: contain;
+      filter: drop-shadow(0 0 8px rgba(168,85,247,0.15));
+    }
     .nav-links-desktop { display: flex; gap: 32px; align-items: center; }
     .nav-links-desktop a {
       font-size: 0.9rem; font-weight: 500; color: var(--text-muted);
@@ -373,8 +378,12 @@
       max-width: 1140px; margin: 0 auto;
       display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
     }
-    .footer-brand { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; }
+    .footer-brand {
+      font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+      display: flex; align-items: center; gap: 8px;
+    }
     .footer-brand span { color: var(--accent); }
+    .footer-logo-img { height: 28px; width: auto; object-fit: contain; }
     .footer-links { display: flex; gap: 24px; }
     .footer-links a {
       font-size: 0.85rem; color: var(--text-muted); text-decoration: none;
@@ -437,7 +446,7 @@
     .loader.gone { pointer-events: none; visibility: hidden; }
 
     /* Loader content fades out before split */
-    .loader-logo, .loader-line, .loader-tagline, .loader-dots, .loader-ring {
+    .loader-logo, .loader-line, .loader-tagline, .loader-dots, .loader-ring, .loader-logo-img {
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
     .loader.fadeout .loader-logo,
@@ -448,6 +457,21 @@
     }
     .loader.fadeout .loader-ring {
       opacity: 0 !important; transform: scale(1.3) !important;
+    }
+    .loader.fadeout .loader-logo-img {
+      opacity: 0 !important; transform: scale(1.1) translateY(-10px) !important;
+    }
+
+    .loader-logo-img {
+      height: 80px; width: auto; object-fit: contain;
+      position: relative; z-index: 3;
+      opacity: 0;
+      animation: loaderImgReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
+      filter: drop-shadow(0 0 20px rgba(168,85,247,0.3));
+    }
+    @keyframes loaderImgReveal {
+      from { opacity: 0; transform: scale(0.7) rotate(-8deg); filter: blur(6px) drop-shadow(0 0 20px rgba(168,85,247,0.3)); }
+      to { opacity: 1; transform: scale(1) rotate(0deg); filter: blur(0) drop-shadow(0 0 20px rgba(168,85,247,0.3)); }
     }
 
     .loader-logo {
@@ -561,6 +585,7 @@
 <!-- OPENING ANIMATION -->
 <div class="loader" id="loader">
   <div class="loader-ring"></div>
+  <img src="Logo.png" alt="" class="loader-logo-img" />
   <div class="loader-logo">
     <span>N</span><span>o</span><span>i</span><span>r</span><span>a</span><span>&nbsp;</span><span class="accent">A</span><span class="accent">g</span><span class="accent">e</span><span class="accent">n</span><span class="accent">c</span><span class="accent">y</span>
   </div>
@@ -572,7 +597,7 @@
 <!-- NAV -->
 <nav id="nav">
   <div class="nav-inner">
-    <a href="#" class="logo">Noira<span>Agency</span></a>
+    <a href="#" class="logo"><img src="Logo.png" alt="Noira Agency" class="logo-img" />Noira<span>Agency</span></a>
     <div class="nav-links-desktop">
       <a href="#services">Leistungen</a>
       <a href="#process">Ablauf</a>
@@ -765,7 +790,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-brand">Noira<span>Agency</span></div>
+    <div class="footer-brand"><img src="Logo.png" alt="Noira Agency" class="footer-logo-img" />Noira<span>Agency</span></div>
     <div class="footer-links"><a href="#">Datenschutzerklärung</a><a href="#">Impressum</a></div>
     <div class="footer-copy">&copy; 2026 Noira Agency. Alle Rechte vorbehalten.</div>
   </div>
