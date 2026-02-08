@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tobys Business – OnlyFans Management</title>
+  <meta name="description" content="Mehr Umsatz, weniger Stress – professionelles OnlyFans Management mit persönlicher Betreuung." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #FAFAF8;
+      --bg-card: #FFFFFF;
+      --bg-alt: #F2F0EC;
+      --text: #1A1A1A;
+      --text-muted: #6B6B6B;
+      --accent: #E8613A;
+      --accent-hover: #D14E2A;
+      --accent-light: #FFF0EB;
+      --border: #E5E3DF;
+      --gradient-warm: linear-gradient(135deg, #E8613A 0%, #F2945E 100%);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.06);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.08);
+      --radius: 16px;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(250,250,248,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: var(--shadow-md); }
+    .nav-inner {
+      max-width: 1140px; margin: 0 auto;
+      padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+    }
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.35rem; font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      font-size: 0.9rem; font-weight: 500; color: var(--text-muted);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--accent) !important; color: #fff !important;
+      padding: 10px 22px !important; border-radius: 50px !important;
+      font-weight: 600 !important; font-size: 0.85rem !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--accent-hover) !important; }
+
+    /* Mobile nav */
+    .hamburger {
+      display: none; background: none; border: none; cursor: pointer;
+      width: 28px; height: 20px; position: relative; z-index: 110;
+    }
+    .hamburger span {
+      display: block; height: 2px; background: var(--text);
+      border-radius: 2px; transition: 0.3s;
+      position: absolute; left: 0; right: 0;
+    }
+    .hamburger span:nth-child(1) { top: 0; }
+    .hamburger span:nth-child(2) { top: 9px; }
+    .hamburger span:nth-child(3) { top: 18px; }
+    .hamburger.open span:nth-child(1) { top: 9px; transform: rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { top: 9px; transform: rotate(-45deg); }
+
+    /* ---- SECTIONS ---- */
+    section { padding: 100px 24px; }
+    .container { max-width: 1140px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.78rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.12em; color: var(--accent); margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 600; line-height: 1.2;
+      color: var(--text); margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+    .section-subtitle {
+      font-size: 1.05rem; color: var(--text-muted);
+      max-width: 580px; line-height: 1.7;
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      padding: 160px 24px 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(232,97,58,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+      font-weight: 700; line-height: 1.15;
+      letter-spacing: -0.03em;
+      max-width: 780px; margin: 0 auto 24px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: var(--gradient-warm);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 1.1rem; color: var(--text-muted);
+      max-width: 540px; margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent); color: #fff;
+      padding: 16px 36px; border-radius: 50px;
+      font-size: 0.95rem; font-weight: 600;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(232,97,58,0.25);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(232,97,58,0.35);
+    }
+    .btn-primary svg { width: 18px; height: 18px; }
+    .hero-badges {
+      display: flex; gap: 32px; justify-content: center;
+      margin-top: 56px; flex-wrap: wrap;
+    }
+    .hero-badge {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.88rem; color: var(--text-muted);
+    }
+    .hero-badge svg { width: 20px; height: 20px; color: var(--accent); flex-shrink: 0; }
+
+    /* ---- PROBLEMS ---- */
+    .problems { background: var(--bg-alt); }
+    .problems-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px; margin-top: 48px;
+    }
+    .problem-item {
+      background: var(--bg-card);
+      padding: 22px 24px; border-radius: 12px;
+      display: flex; align-items: flex-start; gap: 14px;
+      border: 1px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .problem-item:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .problem-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: #FEE9E5; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 1rem;
+    }
+    .problem-item h4 { font-size: 0.92rem; font-weight: 600; margin-bottom: 4px; }
+    .problem-item p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.55; }
+
+    /* ---- PROMISE ---- */
+    .promise { text-align: center; }
+    .promise .section-subtitle { margin: 0 auto 40px; max-width: 640px; }
+    .promise-visual {
+      display: inline-flex; align-items: center; gap: 16px;
+      background: var(--accent-light);
+      padding: 20px 32px; border-radius: 60px;
+      margin-top: 24px;
+    }
+    .promise-visual svg { width: 28px; height: 28px; color: var(--accent); }
+    .promise-visual span { font-size: 1rem; font-weight: 600; color: var(--accent); }
+
+    /* ---- SERVICES ---- */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px; margin-top: 48px;
+    }
+    .service-card {
+      background: var(--bg-card);
+      padding: 36px 28px; border-radius: var(--radius);
+      border: 1px solid var(--border);
+      transition: transform 0.25s, box-shadow 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: var(--gradient-warm);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .service-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: var(--accent-light);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .service-icon svg { width: 24px; height: 24px; color: var(--accent); }
+    .service-card h3 {
+      font-size: 1.05rem; font-weight: 600; margin-bottom: 10px;
+    }
+    .service-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* ---- STATS ---- */
+    .stats { background: var(--bg-alt); }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px; margin-top: 48px;
+    }
+    .stat-card {
+      text-align: center; background: var(--bg-card);
+      padding: 36px 20px; border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2.4rem; font-weight: 700; color: var(--accent);
+      line-height: 1;
+    }
+    .stat-label {
+      margin-top: 8px; font-size: 0.88rem;
+      color: var(--text-muted); font-weight: 500;
+    }
+
+    /* ---- PROCESS ---- */
+    .process-steps {
+      margin-top: 56px;
+      display: grid; gap: 0;
+      position: relative;
+    }
+    .step {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 24px;
+      padding-bottom: 48px;
+      position: relative;
+    }
+    .step:last-child { padding-bottom: 0; }
+    .step-indicator {
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .step-number {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--accent); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1rem;
+      position: relative; z-index: 2;
+      box-shadow: 0 4px 12px rgba(232,97,58,0.2);
+    }
+    .step-line {
+      flex: 1; width: 2px; background: var(--border);
+      margin-top: 8px;
+    }
+    .step:last-child .step-line { display: none; }
+    .step-content {
+      background: var(--bg-card);
+      padding: 28px 32px; border-radius: var(--radius);
+      border: 1px solid var(--border);
+      transition: box-shadow 0.2s;
+    }
+    .step-content:hover { box-shadow: var(--shadow-md); }
+    .step-content h3 {
+      font-size: 1.1rem; font-weight: 600; margin-bottom: 10px;
+    }
+    .step-content p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* ---- CONTACT ---- */
+    .contact { background: var(--bg-alt); }
+    .contact-wrapper {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 56px; margin-top: 48px; align-items: start;
+    }
+    .contact-info h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem; font-weight: 600; margin-bottom: 16px;
+    }
+    .contact-info p {
+      font-size: 0.95rem; color: var(--text-muted); line-height: 1.7;
+      margin-bottom: 28px;
+    }
+    .contact-detail {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 16px;
+    }
+    .contact-detail-icon {
+      width: 42px; height: 42px; border-radius: 12px;
+      background: var(--accent-light);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-detail-icon svg { width: 20px; height: 20px; color: var(--accent); }
+    .contact-detail span { font-size: 0.92rem; font-weight: 500; }
+
+    .contact-form {
+      background: var(--bg-card);
+      padding: 40px; border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-md);
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block; font-size: 0.85rem; font-weight: 600;
+      margin-bottom: 8px; color: var(--text);
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%; padding: 14px 16px;
+      border: 1px solid var(--border); border-radius: 12px;
+      font-family: var(--font-body); font-size: 0.92rem;
+      background: var(--bg); color: var(--text);
+      outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(232,97,58,0.1);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-submit {
+      width: 100%; padding: 16px;
+      background: var(--accent); color: #fff;
+      border: none; border-radius: 12px; cursor: pointer;
+      font-family: var(--font-body); font-size: 0.95rem; font-weight: 600;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .form-submit:hover { background: var(--accent-hover); }
+    .form-submit:active { transform: scale(0.98); }
+
+    /* ---- FOOTER ---- */
+    footer {
+      padding: 48px 24px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .footer-inner {
+      max-width: 1140px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 1.1rem; font-weight: 700;
+    }
+    .footer-brand span { color: var(--accent); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a {
+      font-size: 0.85rem; color: var(--text-muted);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: 0.82rem; color: var(--text-muted); width: 100%; margin-top: 8px; }
+
+    /* ---- ANIMATIONS ---- */
+    .fade-up {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 768px) {
+      .nav-links { 
+        display: none; flex-direction: column;
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+        background: var(--bg); padding: 100px 40px 40px;
+        gap: 24px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 1.2rem; color: var(--text); }
+      .hamburger { display: block; }
+      section { padding: 72px 20px; }
+      .hero { padding: 130px 20px 72px; }
+      .contact-wrapper { grid-template-columns: 1fr; gap: 36px; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-inner { justify-content: center; text-align: center; }
+      .step { grid-template-columns: 44px 1fr; gap: 16px; }
+      .step-number { width: 40px; height: 40px; font-size: 0.9rem; }
+      .step-content { padding: 22px; }
+      .hero-badges { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">Tobys<span>Business</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#services">Leistungen</a>
+      <a href="#process">Ablauf</a>
+      <a href="#contact" class="nav-cta">Erstgespräch sichern</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menü">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="container fade-up">
+    <h1>Mehr Umsatz, weniger Stress&nbsp;– <em>ich übernehme dein komplettes OnlyFans&nbsp;Management.</em></h1>
+    <p>Von Marketing über Chatting bis zur Account-Pflege: persönlich, transparent und mit voller Leidenschaft. Damit du dich auf das konzentrieren kannst, was du am besten machst – deinen Content.</p>
+    <a href="#contact" class="btn-primary">
+      Erstgespräch sichern
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+    <div class="hero-badges">
+      <div class="hero-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        100 % Transparenz
+      </div>
+      <div class="hero-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Persönliche Betreuung
+      </div>
+      <div class="hero-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        24/7 Support
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMS -->
+<section class="problems" id="problems">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-label">Das Problem</div>
+      <h2 class="section-title">Kommt dir das bekannt vor?</h2>
+      <p class="section-subtitle">Viele Agenturen arbeiten leider unseriös – das geht besser.</p>
+    </div>
+    <div class="problems-grid fade-up">
+      <div class="problem-item">
+        <div class="problem-icon">❌</div>
+        <div>
+          <h4>Intransparente Verträge</h4>
+          <p>Versteckte Klauseln und unklare Bedingungen, die dir schaden.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-icon">❌</div>
+        <div>
+          <h4>Kein Zugang zum eigenen Account</h4>
+          <p>Du verlierst die Kontrolle über dein eigenes Profil.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-icon">❌</div>
+        <div>
+          <h4>Unrealistische Versprechen</h4>
+          <p>Große Zahlen am Anfang – ohne echte Ergebnisse.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-icon">❌</div>
+        <div>
+          <h4>Massenabfertigung</h4>
+          <p>Keine individuelle Betreuung – nur Copy-Paste-Strategien.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-icon">❌</div>
+        <div>
+          <h4>Druck bei Content</h4>
+          <p>Ständiger Druck, Grenzen zu überschreiten.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-icon">❌</div>
+        <div>
+          <h4>Fehlender Support</h4>
+          <p>Bei Fragen oder Problemen ist niemand erreichbar.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMISE -->
+<section class="promise" id="promise">
+  <div class="container fade-up">
+    <div class="section-label">Mein Versprechen</div>
+    <h2 class="section-title">Genau deshalb gibt es Tobys Business.</h2>
+    <p class="section-subtitle">Ich arbeite mit dir auf Augenhöhe – persönlich, fair und transparent. Kein riesiges Team, keine Massenabfertigung. Dafür volle Aufmerksamkeit, ehrliche Kommunikation und das gemeinsame Ziel, nachhaltig zu wachsen. Du behältst jederzeit die volle Kontrolle über deinen Account und deinen Content.</p>
+    <div class="promise-visual">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <span>Fair · Transparent · Persönlich</span>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="fade-up" style="text-align:center;">
+      <div class="section-label">Leistungen</div>
+      <h2 class="section-title">So unterstütze ich dich</h2>
+    </div>
+    <div class="services-grid fade-up">
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Traffic & Sichtbarkeit</h3>
+        <p>Ich generiere Reichweite über Social Media Marketing und gezielte Promotion, um stetig neue Fans auf dein Profil zu bringen.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3>Account-Betreuung</h3>
+        <p>Ich übernehme die Pflege, Uploads und Optimierung deines OnlyFans-Accounts – für nachhaltige Performance und Wachstum.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3>Fan-Kommunikation</h3>
+        <p>Professionelles Chatting und strategisches Upselling stärken die Bindung zu deinen Fans und steigern deine Einnahmen.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <h3>Content & Strategie</h3>
+        <p>Klare Contentpläne, individuelle Strategien und faire Kooperationen bringen dein Business auf das nächste Level.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats" id="stats">
+  <div class="container fade-up">
+    <div style="text-align:center;">
+      <div class="section-label">Auf einen Blick</div>
+      <h2 class="section-title">Zahlen, die sprechen</h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Transparenz</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">1:1</div>
+        <div class="stat-label">Persönliche Betreuung</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">Support</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">2+</div>
+        <div class="stat-label">Jahre Erfahrung</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="container">
+    <div class="fade-up" style="text-align:center;">
+      <div class="section-label">Ablauf</div>
+      <h2 class="section-title">So läuft unsere Zusammenarbeit ab</h2>
+    </div>
+    <div class="process-steps fade-up">
+      <div class="step">
+        <div class="step-indicator">
+          <div class="step-number">1</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <h3>Erstgespräch & Kennenlernen</h3>
+          <p>Wir vereinbaren einen Termin, um uns kennenzulernen und zu prüfen, ob die Zusammenarbeit passt. Du erzählst mir, wo du gerade stehst und welche Ziele du hast – ich erkläre dir transparent den Ablauf. Ohne Druck, auf Augenhöhe.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-indicator">
+          <div class="step-number">2</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <h3>Vertragsabschluss & Onboarding</h3>
+          <p>Wenn alles passt, erhältst du deinen Vertrag zum In-Ruhe-Ansehen. Nach der Unterzeichnung analysiere ich deinen aktuellen Stand, definiere Branding, kläre Content-No-Gos und bespreche die genaue Zusammenarbeit.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-indicator">
+          <div class="step-number">3</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <h3>Setup & Optimierung</h3>
+          <p>Ich richte deinen Account optimal für Wachstum ein und gestalte ihn professionell. Gleichzeitig entwickle ich die ersten Contentpläne – strukturiert, klar beschrieben und abgestimmt auf deine Vorstellungen.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-indicator">
+          <div class="step-number">4</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <h3>Tagesgeschäft & Wachstum</h3>
+          <p>Ab jetzt übernehme ich die komplette Betreuung: Account-Pflege, Chatting, Marketing & Traffic, Contentpläne. Du konzentrierst dich auf die Content-Erstellung – ich kümmere mich um den Rest.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="fade-up" style="text-align:center;">
+      <div class="section-label">Kontakt</div>
+      <h2 class="section-title">Lass uns sprechen</h2>
+      <p class="section-subtitle" style="margin: 0 auto;">Schreib mir eine Nachricht und ich melde mich innerhalb von 24 Stunden bei dir.</p>
+    </div>
+    <div class="contact-wrapper fade-up">
+      <div class="contact-info">
+        <h3>Bereit für den nächsten Schritt?</h3>
+        <p>Ob du gerade erst anfängst oder schon einen bestehenden Account hast – ich helfe dir, das Beste daraus zu machen. Schreib mir einfach und wir finden gemeinsam heraus, ob es passt.</p>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <span>kontakt@deinedomain.de</span>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <span>Antwort innerhalb von 24h</span>
+        </div>
+      </div>
+      <form class="contact-form" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Dein Name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail</label>
+            <input type="email" id="email" name="email" placeholder="deine@email.de" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="platform">Aktuelle Situation</label>
+          <select id="platform" name="platform">
+            <option value="" disabled selected>Wähle eine Option</option>
+            <option value="neu">Ich starte neu auf OnlyFans</option>
+            <option value="bestehend">Ich habe bereits einen Account</option>
+            <option value="agentur-wechsel">Ich wechsle von einer anderen Agentur</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Nachricht</label>
+          <textarea id="message" name="message" placeholder="Erzähl mir kurz von dir und deinen Zielen..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Nachricht senden</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">Tobys<span>Business</span></div>
+    <div class="footer-links">
+      <a href="#">Datenschutzerklärung</a>
+      <a href="#">Impressum</a>
+    </div>
+    <div class="footer-copy">&copy; 2026 Tobys Business. Alle Rechte vorbehalten.</div>
+  </div>
+</footer>
+
+<script>
+  // Navbar scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+    });
+  });
+
+  // Scroll-triggered fade-up animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
